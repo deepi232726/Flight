@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>FlightMate - Live Tracking</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #172033;
+        }
+
+        .container {
+            max-width: 520px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            color: #6c7686;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 18px;
+            box-shadow: 0 7px 22px rgba(0,0,0,0.07);
+        }
+
+        .live-badge {
+            display: inline-block;
+            padding: 7px 12px;
+            border-radius: 20px;
+            background: #e7fff0;
+            color: #159447;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .map-box {
+            height: 190px;
+            border-radius: 16px;
+            background: #e9eef5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-top: 15px;
+            color: #657184;
+            line-height: 1.6;
+        }
+
+        .driver {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .driver-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #e8f0ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+        }
+
+        .driver-name {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .driver-status {
+            color: #159447;
+            margin-top: 5px;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #e5e9ef;
+        }
+
+        .row:last-child {
+            border-bottom: none;
+        }
+
+        .label {
+            color: #697386;
+        }
+
+        .value {
+            font-weight: bold;
+        }
+
+        .tracking-status {
+            padding: 13px;
+            border-radius: 12px;
+            background: #eef5ff;
+            color: #2563eb;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        /* ==========================
+           SOS SECTION
+        ========================== */
+
+        .sos-card {
+            background: #fff1f1;
+            border: 1px solid #ffcaca;
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .sos-title {
+            color: #d92d20;
+            font-size: 21px;
+            font-weight: bold;
+        }
+
+        .sos-description {
+            color: #694949;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .sos-button {
+            display: block;
+            width: 100%;
+            padding: 17px;
+
+            margin-top: 15px;
+
+            background: #e52521;
+            color: white;
+
+            border: none;
+            border-radius: 14px;
+
+            text-decoration: none;
+
+            font-size: 20px;
+            font-weight: bold;
+
+            box-shadow: 0 5px 15px rgba(229,37,33,0.25);
+        }
+
+        .sos-button:active {
+            transform: scale(0.97);
+        }
+
+        .back-button {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            margin-top: 15px;
+
+            background: #eef2f7;
+            color: #172033;
+
+            border-radius: 13px;
+            text-align: center;
+            text-decoration: none;
+
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            color: #8993a3;
+            font-size: 12px;
+            margin-top: 20px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <h1>📍 Live Ride Tracking</h1>
+
+        <p>
+            FlightMate Safety Tracking
+        </p>
+
+        <span class="live-badge">
+            🟢 LIVE
+        </span>
+
+    </div>
+
+
+    <!-- TRACKING -->
+
+    <div class="card">
+
+        <div class="tracking-status">
+            📍 Live Tracking Active
+        </div>
+
+
+        <div class="map-box">
+
+            🗺️
+
+            <br>
+
+            Driver location is being tracked
+
+            <br>
+
+            Real-time location available
+
+        </div>
+
+    </div>
+
+
+    <!-- DRIVER -->
+
+    <div class="card">
+
+        <h2>🚗 Driver Information</h2>
+
+        <div class="driver">
+
+            <div class="driver-icon">
+                👨‍✈️
+            </div>
+
+            <div>
+
+                <div class="driver-name">
+                    {{ ride.driver }}
+                </div>
+
+                <div class="driver-status">
+                    🟢 {{ ride.status }}
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- RIDE DETAILS -->
+
+    <div class="card">
+
+        <h2>📊 Ride Details</h2>
+
+        <div class="row">
+
+            <span class="label">
+                Vehicle
+            </span>
+
+            <span class="value">
+                {{ ride.vehicle }}
+            </span>
+
+        </div>
+
+
+        <div class="row">
+
+            <span class="label">
+                Vehicle Number
+            </span>
+
+            <span class="value">
+                {{ ride.vehicle_no }}
+            </span>
+
+        </div>
+
+
+        <div class="row">
+
+            <span class="label">
+                Distance
+            </span>
+
+            <span class="value">
+                {{ ride.location }}
+            </span>
+
+        </div>
+
+
+        <div class="row">
+
+            <span class="label">
+                Estimated Arrival
+            </span>
+
+            <span class="value">
+                {{ ride.eta }}
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- EMERGENCY SOS -->
+
+    <div class="sos-card">
+
+        <div class="sos-title">
+            🚨 Emergency SOS
+        </div>
+
+        <p class="sos-description">
+
+            If you feel unsafe or face an emergency,
+            immediately open the FlightMate Emergency
+            Safety Center.
+
+        </p>
+
+
+        <!-- IMPORTANT SOS LINK -->
+
+        <a href="{{ url_for('sos') }}"
+           class="sos-button">
+
+            🚨 OPEN SOS
+
+        </a>
+
+    </div>
+
+
+    <!-- BACK -->
+
+    <a href="{{ url_for('home') }}"
+       class="back-button">
+
+        🏠 Back to Home
+
+    </a>
+
+
+    <div class="footer">
+
+        FlightMate • Safe Journey, Smart Journey
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

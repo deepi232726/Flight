@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FlightMate Emergency SOS</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #0b0f14;
+            color: white;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            color: #ff3b30;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            color: #aaa;
+        }
+
+        .card {
+            background: #151b22;
+            border-radius: 18px;
+            padding: 20px;
+            margin-bottom: 18px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        .sos-button {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 8px solid #ff7770;
+            background: #ff3b30;
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+            box-shadow: 0 0 30px rgba(255,59,48,0.5);
+        }
+
+        .sos-button:active {
+            transform: scale(0.95);
+        }
+
+        .voice-button,
+        .stop-button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .voice-button {
+            background: #2563eb;
+        }
+
+        .stop-button {
+            background: #555;
+        }
+
+        .status {
+            text-align: center;
+            padding: 14px;
+            border-radius: 10px;
+            background: #202833;
+            margin-top: 15px;
+            color: #ddd;
+        }
+
+        .active {
+            background: #351515;
+            color: #ff6b61;
+        }
+
+        .item {
+            padding: 12px 0;
+            border-bottom: 1px solid #2b333d;
+        }
+
+        .item:last-child {
+            border-bottom: none;
+        }
+
+        .label {
+            color: #999;
+            font-size: 13px;
+        }
+
+        .value {
+            margin-top: 4px;
+            font-size: 16px;
+        }
+
+        .success {
+            color: #42d392;
+        }
+
+        .warning {
+            color: #ffd166;
+        }
+
+        .danger {
+            color: #ff5c5c;
+        }
+
+        #voiceResult {
+            text-align: center;
+            margin-top: 12px;
+            color: #8ab4ff;
+            min-height: 24px;
+        }
+
+        #mapLink {
+            display: none;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        #mapLink a {
+            color: #5da9ff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h1>🚨 FlightMate SOS</h1>
+        <p>Emergency Safety Center</p>
+    </div>
+
+
+    <!-- SOS CARD -->
+    <div class="card">
+
+        <button
+            id="sosButton"
+            class="sos-button"
+            onclick="activateSOS()">
+            SOS
+        </button>
+
+        <div id="status" class="status">
+            Safety System Ready
+        </div>
+
+    </div>
+
+
+    <!-- VOICE SOS -->
+    <div class="card">
+
+        <h2>🎙️ Voice SOS</h2>
+
+        <p>
+            Say:
+            <b>"SOS"</b>,
+            <b>"HELP"</b>,
+            or
+            <b>"EMERGENCY"</b>
+        </p>
+
+        <button
+            id="voiceButton"
+            class="voice-button"
+            onclick="startVoiceSOS()">
+            🎙️ Start SOS Voice
+        </button>
+
+        <button
+            id="stopVoiceButton"
+            class="stop-button"
+            onclick="stopVoiceSOS()">
+            ⏹ Stop Voice
+        </button>
+
+        <div id="voiceResult">
+            Voice system ready
+        </div>
+
+    </div>
+
+
+    <!-- LOCATION -->
+    <div class="card">
+
+        <h2>📍 Live Location</h2>
+
+        <div class="item">
+            <div class="label">Latitude</div>
+            <div class="value" id="latitude">
+                Waiting...
+            </div>
+        </div>
+
+        <div class="item">
+            <div class="label">Longitude</div>
+            <div class="value" id="longitude">
+                Waiting...
+            </div>
+        </div>
+
+        <div class="item">
+            <div class="label">GPS Status</div>
+            <div class="value success" id="gpsStatus">
+                Ready
+            </div>
+        </div>
+
+        <div id="mapLink">
+            <a id="mapUrl" href="#" target="_blank">
+                🌍 Open Current Location
+            </a>
+        </div>
+
+    </div>
+
+
+    <!-- EMERGENCY RESPONSE -->
+    <div class="card">
+
+        <h2>🛡️ Emergency Response</h2>
+
+        <div class="item">
+            <div class="label">Police</div>
+            <div class="value">
+                🚔 Emergency Assistance Ready
+            </div>
+        </div>
+
+        <div class="item">
+            <div class="label">Trusted Contacts</div>
+            <div class="value">
+                📱 Notification Ready
+            </div>
+        </div>
+
+        <div class="item">
+            <div class="label">Audio Recording</div>
+            <div class="value" id="audioStatus">
+                ⏹ Not Recording
+            </div>
+        </div>
+
+        <div class="item">
+            <div class="label">Live Tracking</div>
+            <div class="value success">
+                📍 Tracking Available
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+let recognition = null;
+let voiceListening = false;
+let sosActivated = false;
+
+
+/* =====================================================
+   GET CURRENT LOCATION
+===================================================== */
+
+function getLocation() {
+
+    if (!navigator.geolocation) {
+
+        document.getElementById("gpsStatus").innerText =
+            "GPS Not Supported";
+
+        return;
+    }
+
+    document.getElementById("gpsStatus").innerText =
+        "Getting Location...";
+
+    navigator.geolocation.getCurrentPosition(
+
+        function(position) {
+
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
+
+            document.getElementById("latitude").innerText =
+                lat.toFixed(6);
+
+            document.getElementById("longitude").innerText =
+                lon.toFixed(6);
+
+            document.getElementById("gpsStatus").innerText =
+                "Live Location Detected";
+
+            const map =
+                "https://www.google.com/maps?q="
+                + lat
+                + ","
+                + lon;
+
+            document.getElementById("mapUrl").href = map;
+
+            document.getElementById("mapLink").style.display =
+                "block";
+        },
+
+        function(error) {
+
+            document.getElementById("gpsStatus").innerText =
+                "Location Permission Required";
+
+            console.log(error);
+        }
+    );
+}
+
+
+/* =====================================================
+   NORMAL SOS
+===================================================== */
+
+function activateSOS() {
+
+    sosActivated = true;
+
+    const status =
+        document.getElementById("status");
+
+    status.classList.add("active");
+
+    status.innerHTML =
+        "🚨 SOS ACTIVATED — Emergency Response Started";
+
+    document.getElementById("sosButton").innerText =
+        "SOS ON";
+
+    document.getElementById("audioStatus").innerText =
+        "🎙️ Emergency Audio Active";
+
+    document.getElementById("audioStatus").className =
+        "value danger";
+
+    getLocation();
+
+    alert(
+        "🚨 SOS ACTIVATED!\n\n" +
+        "Live location is being obtained.\n" +
+        "Emergency contacts can be notified."
+    );
+}
+
+
+/* =====================================================
+   VOICE SOS
+===================================================== */
+
+function startVoiceSOS() {
+
+    const voiceResult =
+        document.getElementById("voiceResult");
+
+    /*
+       Browser support check
+    */
+
+    const SpeechRecognition =
+        window.SpeechRecognition ||
+        window.webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+
+        voiceResult.innerHTML =
+            "❌ Voice recognition is not supported in this browser.";
+
+        alert(
+            "Voice recognition is not supported.\n" +
+            "Please use Google Chrome."
+        );
+
+        return;
+    }
+
+
+    if (voiceListening) {
+        return;
+    }
+
+
+    recognition = new SpeechRecognition();
+
+    recognition.lang = "en-IN";
+
+    recognition.continuous = true;
+
+    recognition.interimResults = false;
+
+
+    recognition.onstart = function() {
+
+        voiceListening = true;
+
+        document.getElementById("voiceButton").innerText =
+            "🎙️ Listening...";
+
+        voiceResult.innerHTML =
+            "🟢 Listening... Say SOS / HELP / EMERGENCY";
+
+    };
+
+
+    recognition.onresult = function(event) {
+
+        const last =
+            event.results[event.results.length - 1][0].transcript;
+
+        const command =
+            last.toLowerCase().trim();
+
+        voiceResult.innerHTML =
+            "You said: <b>" + command + "</b>";
+
+
+        /*
+           Emergency keywords
+        */
+
+        if (
+            command.includes("sos") ||
+            command.includes("help") ||
+            command.includes("emergency") ||
+            command.includes("save me")
+        ) {
+
+            voiceResult.innerHTML =
+                "🚨 Emergency Voice Command Detected!";
+
+            activateSOS();
+
+            stopVoiceSOS();
+        }
+
+    };
+
+
+    recognition.onerror = function(event) {
+
+        console.log("Voice Error:", event.error);
+
+        voiceResult.innerHTML =
+            "❌ Voice Error: " + event.error;
+
+        voiceListening = false;
+
+        document.getElementById("voiceButton").innerText =
+            "🎙️ Start SOS Voice";
+    };
+
+
+    recognition.onend = function() {
+
+        voiceListening = false;
+
+        document.getElementById("voiceButton").innerText =
+            "🎙️ Start SOS Voice";
+
+    };
+
+
+    try {
+
+        recognition.start();
+
+    } catch (error) {
+
+        console.log(error);
+
+        voiceResult.innerHTML =
+            "❌ Could not start microphone.";
+
+    }
+
+}
+
+
+/* =====================================================
+   STOP VOICE SOS
+===================================================== */
+
+function stopVoiceSOS() {
+
+    if (recognition) {
+
+        try {
+            recognition.stop();
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
+
+    voiceListening = false;
+
+    document.getElementById("voiceButton").innerText =
+        "🎙️ Start SOS Voice";
+
+    document.getElementById("voiceResult").innerText =
+        "Voice system stopped.";
+
+}
+
+
+/* =====================================================
+   PAGE LOAD
+===================================================== */
+
+window.onload = function() {
+
+    console.log("FlightMate SOS page loaded.");
+
+    getLocation();
+
+};
+
+</script>
+
+</body>
+</html>

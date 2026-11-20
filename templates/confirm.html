@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Confirm Ride - FlightMate</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static',filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>🚖 Confirm Ride</h1>
+
+    <!-- Passenger Details -->
+
+    <div class="flight-card">
+
+        <h2>Passenger Details</h2>
+
+        <p><b>Name :</b> {{session.get('name')}}</p>
+
+        <p><b>Flight :</b> {{session.get('flight')}}</p>
+
+        <p><b>Airport :</b> {{session.get('airport')}}</p>
+
+        <p><b>Pickup :</b> {{session.get('pickup')}}</p>
+
+        <p><b>Departure Time :</b> {{session.get('time')}}</p>
+
+        <p><b>Duration :</b> {{session.get('duration')}}</p>
+
+        <p><b>Ride Type :</b> {{session.get('preference')}}</p>
+
+        <p><b>Gender Preference :</b> {{session.get('gender')}}</p>
+
+    </div>
+
+    <br>
+
+    <!-- Matched Riders -->
+
+    <div class="match-card">
+
+        <h2>Selected Co-Riders</h2>
+
+        {% if selected_riders|length == 0 %}
+
+            <p>🚖 Private Ride / No Co-riders Selected</p>
+
+        {% else %}
+
+            {% for rider in selected_riders %}
+
+                <p>
+                    ✅ {{rider.name}}
+                    ({{rider.gender}})
+                </p>
+
+            {% endfor %}
+
+        {% endif %}
+
+    </div>
+
+    <br>
+
+    <!-- Fare Summary -->
+
+    <div class="match-card">
+
+        <h2>Fare Summary</h2>
+
+        <p>Total Ride Cost : ₹{{total_cost}}</p>
+
+        <p>Your Share : ₹{{your_share}}</p>
+
+        <p>Estimated Savings : ₹{{savings}}</p>
+
+    </div>
+
+    <br>
+
+    <!-- Driver Details -->
+
+    <!-- Driver Details -->
+
+<div class="match-card">
+
+    <h2>Driver Details</h2>
+
+    <p>👨 Driver : {{driver.name}}</p>
+
+    <p>🚗 Vehicle : {{driver.vehicle}}</p>
+
+    <p>🔢 Vehicle No : {{driver.number}}</p>
+
+    <p>⏱ ETA : {{driver.eta}}</p>
+
+    <p>✅ Verified :
+        {% if driver.verified %}
+            Yes
+        {% else %}
+            No
+        {% endif %}
+    </p>
+
+    <p>⭐ Driver Trust Score : {{driver.trust_score}} / 100</p>
+
+    <p>🔐 Ride OTP : {{session.get('ride_otp')}}</p>
+
+</div>
+
+    <br>
+
+    <!-- Safety Features -->
+
+    <div class="success-card">
+
+        <h2>Safety Features</h2>
+
+        <p>✅ Aadhaar Verified Driver</p>
+
+        <p>✅ Live Tracking Enabled</p>
+
+        <p>✅ Emergency SOS Available</p>
+
+        <p>✅ Ride Audio Recording Active</p>
+        <p>🤖 AI Safety Check Passed</p>
+
+<p>📱 OTP Verification Enabled</p>
+
+<p>📍 GPS Live Tracking Active</p>
+
+    </div>
+
+    <br>
+
+    <a href="/success">
+
+        <button class="main-btn">
+
+            ✅ Book Ride
+
+        </button>
+
+    </a>
+
+</div>
+
+</body>
+</html>

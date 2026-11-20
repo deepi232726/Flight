@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>FlightMate - Ride Confirmed</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #172033;
+        }
+
+        .container {
+            max-width: 520px;
+            margin: auto;
+            padding: 25px 18px;
+        }
+
+        .success-card {
+            background: white;
+            border-radius: 22px;
+            padding: 28px 20px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+
+        .success-icon {
+            width: 85px;
+            height: 85px;
+            margin: auto;
+            border-radius: 50%;
+            background: #e8fff2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 45px;
+        }
+
+        h1 {
+            margin-bottom: 8px;
+            color: #159447;
+        }
+
+        .subtitle {
+            color: #687386;
+            line-height: 1.5;
+        }
+
+        .info-card {
+            background: #f7f9fc;
+            border-radius: 15px;
+            padding: 16px;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e1e6ed;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .label {
+            color: #697386;
+        }
+
+        .value {
+            font-weight: bold;
+        }
+
+        .button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 13px;
+            text-decoration: none;
+            font-size: 17px;
+            font-weight: bold;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .tracker-button {
+            background: #2563eb;
+            color: white;
+        }
+
+        .home-button {
+            background: #eef2f7;
+            color: #172033;
+        }
+
+        /* ==============================
+           EMERGENCY SOS
+        ============================== */
+
+        .emergency-card {
+            margin-top: 22px;
+            background: #fff1f1;
+            border: 1px solid #ffcaca;
+            border-radius: 18px;
+            padding: 18px;
+            text-align: center;
+        }
+
+        .emergency-title {
+            color: #d92d20;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .emergency-text {
+            color: #6b4b4b;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .sos-button {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            margin-top: 14px;
+
+            background: #e52521;
+            color: white;
+
+            border: none;
+            border-radius: 14px;
+
+            text-decoration: none;
+
+            font-size: 20px;
+            font-weight: bold;
+
+            box-shadow: 0 5px 15px rgba(229,37,33,0.25);
+        }
+
+        .sos-button:active {
+            transform: scale(0.97);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #8993a3;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- SUCCESS -->
+    <div class="success-card">
+
+        <div class="success-icon">
+            ✅
+        </div>
+
+        <h1>Ride Confirmed!</h1>
+
+        <p class="subtitle">
+            Your FlightMate ride has been successfully booked.
+        </p>
+
+
+        <!-- RIDE INFORMATION -->
+        <div class="info-card">
+
+            <div class="info-row">
+                <span class="label">
+                    Status
+                </span>
+
+                <span class="value">
+                    Confirmed
+                </span>
+            </div>
+
+            <div class="info-row">
+                <span class="label">
+                    Safety
+                </span>
+
+                <span class="value">
+                    🛡️ Protected
+                </span>
+            </div>
+
+            <div class="info-row">
+                <span class="label">
+                    Tracking
+                </span>
+
+                <span class="value">
+                    📍 Available
+                </span>
+            </div>
+
+        </div>
+
+
+        <!-- TRACK RIDE -->
+        <a href="{{ url_for('tracker') }}"
+           class="button tracker-button">
+
+            📍 Track My Ride
+
+        </a>
+
+
+        <!-- HOME -->
+        <a href="{{ url_for('home') }}"
+           class="button home-button">
+
+            🏠 Back to Home
+
+        </a>
+
+    </div>
+
+
+    <!-- EMERGENCY SOS -->
+    <div class="emergency-card">
+
+        <div class="emergency-title">
+            🚨 Emergency SOS
+        </div>
+
+        <p class="emergency-text">
+            If you feel unsafe during your journey,
+            open the FlightMate Emergency Safety Center.
+        </p>
+
+        <a href="{{ url_for('sos') }}"
+           class="sos-button">
+
+            🚨 OPEN SOS
+
+        </a>
+
+    </div>
+
+
+    <div class="footer">
+        FlightMate • Smart & Safe Airport Ride Sharing
+    </div>
+
+</div>
+
+</body>
+</html>

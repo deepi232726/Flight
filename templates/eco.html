@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FlightMate Eco Impact</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static',filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>🌱 Eco Impact Report</h1>
+
+    <div class="success-card">
+
+        <h2>Carbon Dioxide Saved</h2>
+
+        <h1>{{eco.co2}}</h1>
+
+        <p>
+            Shared rides help reduce harmful emissions
+            and contribute to cleaner transportation.
+        </p>
+
+    </div>
+
+    <br>
+
+    <div class="match-card">
+
+        <h2>🌳 Trees Equivalent</h2>
+
+        <h1>{{eco.trees}}</h1>
+
+        <p>
+            Your ride's environmental benefit is equal
+            to planting these many trees.
+        </p>
+
+    </div>
+
+    <br>
+
+    <div class="match-card">
+
+        <h2>⛽ Fuel Saved</h2>
+
+        <h1>{{eco.fuel}}</h1>
+
+        <p>
+            Ride sharing helps reduce fuel consumption.
+        </p>
+
+    </div>
+
+    <br>
+
+    <div class="success-card">
+
+        <h2>📉 Emission Reduction</h2>
+
+        <h1>{{eco.emission}}</h1>
+
+        <p>
+            More passengers sharing one vehicle means
+            lower overall emissions.
+        </p>
+
+    </div>
+
+    <br>
+
+    <div class="flight-card">
+
+        <h2>Eco Achievement</h2>
+
+        {% if session.get("passengers",1) > 1 %}
+
+            <h1>🌍 Eco Saver</h1>
+
+            <p>
+                Thank you for choosing shared mobility
+                and reducing traffic congestion.
+            </p>
+
+        {% else %}
+
+            <h1>🚖 Private Ride</h1>
+
+            <p>
+                Share rides in future to maximize
+                environmental benefits.
+            </p>
+
+        {% endif %}
+
+    </div>
+
+    <br>
+
+    <div class="match-card">
+
+        <h2>Ride Statistics</h2>
+
+        <p>
+            👥 Passengers :
+            {{session.get("passengers",1)}}
+        </p>
+
+        <p>
+            🌱 Eco Mode :
+            {{session.get("eco","No")}}
+        </p>
+
+        <p>
+            🚖 Ride Type :
+            {{session.get("preference")}}
+        </p>
+
+    </div>
+
+    <br>
+
+    <a href="/tracker">
+
+        <button class="main-btn">
+
+            🚖 Live Tracker
+
+        </button>
+
+    </a>
+
+    <br>
+
+    <a href="/profile">
+
+        <button class="main-btn">
+
+            👤 Profile
+
+        </button>
+
+    </a>
+
+    <br>
+
+    <a href="/">
+
+        <button class="secondary-btn">
+
+            🏠 Home
+
+        </button>
+
+    </a>
+
+</div>
+
+</body>
+</html>

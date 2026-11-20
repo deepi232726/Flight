@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Ride - FlightMate</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static',filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>✈ Book Your Ride</h1>
+
+    <form action="/book" method="POST">
+
+        <label>Name</label>
+        <input
+            type="text"
+            name="name"
+            value="{{session.get('name','Deepika')}}"
+            required>
+
+        <label>Flight Number</label>
+        <input
+            type="text"
+            name="flight"
+            placeholder="AI202"
+            required>
+
+        <label>Airport Name</label>
+        <input
+            type="text"
+            name="airport"
+            placeholder="Chennai International Airport"
+            required>
+
+        <label>Pickup Location</label>
+        <input
+            type="text"
+            name="pickup"
+            placeholder="Coimbatore"
+            required>
+
+        <label>Pickup Time</label>
+        <input
+            type="time"
+            name="time"
+            required>
+
+        <label>Travel Duration</label>
+        <input
+            type="text"
+            name="duration"
+            placeholder="2h 30m"
+            required>
+
+        <label>Gender Preference</label>
+
+        <select name="gender">
+
+            <option value="Any">
+                Any
+            </option>
+
+            <option value="Female Only">
+                Female Only
+            </option>
+
+            <option value="Male Only">
+                Male Only
+            </option>
+
+        </select>
+
+
+        <label>Ride Preference</label>
+
+        <select name="preference">
+
+            <option value="Shared Ride">
+                Shared Ride
+            </option>
+
+            <option value="Private Ride">
+                Private Ride
+            </option>
+
+        </select>
+
+
+        <label>Eco Mode</label>
+
+        <select name="eco">
+
+            <option value="Yes">
+                Enabled
+            </option>
+
+            <option value="No">
+                Disabled
+            </option>
+
+        </select>
+
+
+        <label>Luggage Size</label>
+
+        <select name="luggage">
+
+            <option value="Small">
+                Small
+            </option>
+
+            <option value="Medium">
+                Medium
+            </option>
+
+            <option value="Large">
+                Large
+            </option>
+
+        </select>
+
+        <button class="main-btn">
+
+            🔍 Find Matches
+
+        </button>
+
+    </form>
+
+    <br>
+
+    <div class="match-card">
+
+        <h2>Smart Features</h2>
+
+        <p>✅ Gender Based Matching</p>
+
+        <p>✅ Shared / Private Ride</p>
+
+        <p>✅ Eco Friendly Route</p>
+
+        <p>✅ Verified Co-riders</p>
+
+        <p>✅ Dynamic Cost Sharing</p>
+
+    </div>
+
+    <br>
+
+    <a href="/">
+
+        <button class="secondary-btn">
+
+            ⬅ Back Home
+
+        </button>
+
+    </a>
+
+</div>
+
+</body>
+</html>

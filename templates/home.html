@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>FlightMate Home</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static',filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <div class="header">
+
+        <h1>Good Morning, {{flight.name}} 👋</h1>
+
+        {% if ride_booked %}
+
+        <div class="flight-card">
+
+            <h2>{{flight.flight}}</h2>
+
+            <h3>{{flight.pickup}} ✈ {{flight.airport}}</h3>
+
+            <p>Departure : {{flight.time}}</p>
+
+            <p>Duration : {{flight.duration}}</p>
+
+            <p>Gender Preference : {{flight.gender}}</p>
+
+            <button class="status-btn">
+                {{flight.status}}
+            </button>
+
+        </div>
+
+        {% else %}
+
+        <div class="match-card">
+
+            <h2>No Active Ride</h2>
+
+            <p>
+                Book your airport ride to see
+                flight details and matches.
+            </p>
+
+            <a href="/book">
+                <button class="main-btn">
+                    ✈ Book Ride
+                </button>
+            </a>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+    <br>
+
+    <h2>Quick Actions</h2>
+
+    <div class="quick-grid">
+
+        <a href="/book">
+            <div class="box">
+                ✈<br>
+                Book Ride
+            </div>
+        </a>
+
+        <a href="/matches">
+            <div class="box">
+                🤝<br>
+                Find Match
+            </div>
+        </a>
+
+        <a href="/tracker">
+            <div class="box">
+                🚖<br>
+                Live Tracker
+            </div>
+        </a>
+
+        <a href="/eco">
+            <div class="box">
+                🌱<br>
+                Eco Impact
+            </div>
+        </a>
+
+    </div>
+
+    <br>
+
+    <div class="traffic">
+
+        <h3>Traffic Alert</h3>
+
+        <p>
+            Heavy traffic detected.
+            Leave 20 minutes earlier.
+        </p>
+
+    </div>
+
+    <br>
+
+    <div class="matches">
+
+        {% if ride_booked %}
+
+        <h3>Ride Status</h3>
+
+        <p>
+            Ride booked successfully.
+        </p>
+
+        {% else %}
+
+        <h3>No Matches Yet</h3>
+
+        <p>
+            Book a ride to discover co-riders.
+        </p>
+
+        {% endif %}
+
+    </div>
+
+    <br>
+
+    <div class="bottom">
+
+        <a href="/">Home</a>
+
+        <a href="/book">Book</a>
+
+        <a href="/matches">Match</a>
+
+        <a href="/profile">Profile</a>
+
+        <a href="/safety">Safety</a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

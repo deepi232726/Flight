@@ -1,0 +1,1 @@
+console.log("FlightMate Loaded Successfully");

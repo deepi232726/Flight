@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Find Matches - FlightMate</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static',filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>🤝 Smart Ride Matches</h1>
+
+    {% if riders|length == 0 %}
+
+    <div class="success-card">
+
+        <h2>🚖 Private Ride Enabled</h2>
+
+        <p>
+            No co-riders will be assigned.
+        </p>
+
+        <p>
+            Enjoy your private airport ride.
+        </p>
+
+    </div>
+
+    <br>
+
+    <form action="/confirm">
+
+        <button class="main-btn">
+
+            Continue
+
+        </button>
+
+    </form>
+
+    {% else %}
+
+    <h3>Select one or more co-riders</h3>
+
+    <form action="/confirm" method="GET">
+
+        {% for rider in riders %}
+
+        <div class="match-card">
+
+            <input
+                type="checkbox"
+                name="rider"
+                value="{{rider.name}}">
+
+            <h2>
+                {{rider.name}}
+                {% if rider.verified %}
+                ✅
+                {% endif %}
+            </h2>
+
+            <p>
+                Gender : {{rider.gender}}
+            </p>
+
+            <p>
+                Pickup : {{rider.pickup}}
+            </p>
+
+            <p>
+                Distance : {{rider.distance}} km
+            </p>
+
+            <p>
+                Share : ₹{{rider.share}}
+            </p>
+            <p>
+    ⭐ Trust Score : {{rider.trust_score}} / 100
+</p>
+
+<p>
+    ⚠ Risk Score : {{rider.risk_score}} / 100
+</p>
+
+<p>
+    🛡 Status : {{rider.status}}
+</p>
+
+<p>
+    📱 Phone Verified :
+    {% if rider.phone_verified %}
+        ✅ Yes
+    {% else %}
+        ❌ No
+    {% endif %}
+</p>
+
+        </div>
+
+        <br>
+
+        {% endfor %}
+
+        <button class="main-btn">
+
+            🚖 Confirm Ride
+
+        </button>
+
+    </form>
+
+    {% endif %}
+
+    <br>
+
+    <a href="/book">
+
+        <button class="secondary-btn">
+
+            ⬅ Back
+
+        </button>
+
+    </a>
+
+</div>
+
+</body>
+</html>

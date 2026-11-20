@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>FlightMate - Safety Center</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        .sos-link {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 20px auto 5px;
+
+            padding: 16px;
+
+            background: #e52521;
+            color: white;
+
+            text-align: center;
+            text-decoration: none;
+
+            border-radius: 14px;
+
+            font-size: 22px;
+            font-weight: bold;
+
+            box-shadow: 0 5px 15px rgba(229, 37, 33, 0.30);
+
+            cursor: pointer;
+        }
+
+        .sos-link:hover {
+            background: #c91d1a;
+        }
+
+        .sos-link:active {
+            transform: scale(0.97);
+        }
+
+        .sos-description {
+            text-align: center;
+            color: #777;
+            margin-bottom: 10px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <!-- ========================= -->
+    <!-- SAFETY CENTER -->
+    <!-- ========================= -->
+
+    <h1>🔒 Safety Center</h1>
+
+
+    <!-- ========================= -->
+    <!-- EMERGENCY SOS -->
+    <!-- ========================= -->
+
+    <div class="success-card">
+
+        <h2>🆘 Emergency SOS</h2>
+
+        <p class="sos-description">
+            If you feel unsafe, open the FlightMate Emergency Safety Center.
+        </p>
+
+
+        <!-- IMPORTANT: THIS OPENS /sos -->
+
+        <a href="{{ url_for('sos') }}"
+           class="sos-link">
+
+            🚨 SOS
+
+        </a>
+
+    </div>
+
+
+    <br>
+
+
+    <!-- ========================= -->
+    <!-- GENDER PREFERENCE -->
+    <!-- ========================= -->
+
+    <div class="match-card">
+
+        <h2>👩 Gender Preference</h2>
+
+        <p>
+            {{ session.get("gender", "Any") }}
+        </p>
+
+    </div>
+
+
+    <br>
+
+
+    <!-- ========================= -->
+    <!-- LIVE LOCATION -->
+    <!-- ========================= -->
+
+    <div class="match-card">
+
+        <h2>📍 Live Location Sharing</h2>
+
+        <p>
+            ✅ Enabled
+        </p>
+
+    </div>
+
+
+    <br>
+
+
+    <!-- ========================= -->
+    <!-- AUDIO RECORDING -->
+    <!-- ========================= -->
+
+    <div class="match-card">
+
+        <h2>🎙 Ride Audio Recording</h2>
+
+        <p>
+            🟢 Active
+        </p>
+
+    </div>
+
+
+    <br>
+
+
+    <!-- ========================= -->
+    <!-- AI SAFETY REPORT -->
+    <!-- ========================= -->
+
+    <div class="match-card">
+
+        <h2>🪪 AI Safety Report</h2>
+
+        <p>
+            ✅ Aadhaar Verified
+        </p>
+
+        <p>
+            ✅ Phone Verified
+        </p>
+
+        <p>
+            ⭐ Trust Score :
+            {{ report.trust_score }} / 100
+        </p>
+
+        <p>
+            ⚠ Risk Score :
+            {{ report.risk_score }} / 100
+        </p>
+
+        <p>
+            🛡 Status :
+            {{ report.status }}
+        </p>
+
+    </div>
+
+
+    <br>
+
+
+    <!-- ========================= -->
+    <!-- TRUSTED CONTACTS -->
+    <!-- ========================= -->
+
+    <div class="match-card">
+
+        <h2>☎ Trusted Contacts</h2>
+
+        <p>
+            Mother : +91 9876543210
+        </p>
+
+        <p>
+            Father : +91 9876543211
+        </p>
+
+    </div>
+
+
+    <br>
+
+
+    <!-- ========================= -->
+    <!-- HOME -->
+    <!-- ========================= -->
+
+    <a href="{{ url_for('home') }}">
+
+        <button class="secondary-btn">
+
+            🏠 Home
+
+        </button>
+
+    </a>
+
+
+</div>
+
+</body>
+
+</html>
